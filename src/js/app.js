@@ -1,8 +1,9 @@
 let jsonObj = new Array();
+const $logo = document.querySelector('header');
 const $searchInput = document.querySelector('#search-input');
 const $searchBtn = document.querySelector('.icon');
-const $wrapperArea = document.querySelector('.wrapper');
-const $infoList = $wrapperArea.getElementsByTagName('div');
+const $container = document.querySelector('.container');
+const $infoList = $container.getElementsByTagName('div');
 const imagesUrl = 'https://image.tmdb.org/t/p/w500/'; // default url
 const checkText = new RegExp(/\s/g); // 공백 제거 정규식
 const options = {
@@ -19,31 +20,28 @@ const options = {
  * @returns jsonObj
  */
 (async function getMovieList() {
-  // fetch로 데이터 가져올 때까지 기다려주고
-  let data = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
-    .then(response => response.json())
-    .then(response => {
-      return response;
-    });
+  let data = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options).then(response =>
+    response.json(),
+  );
 
-  // data map 함수로 순회
   jsonObj = data.results.map(item => {
+    const $divArea = document.createElement('div');
     const $images = document.createElement('img');
     const $title = document.createElement('h3');
     const $content = document.createElement('p');
     const $grade = document.createElement('small');
-    const $divArea = document.createElement('div');
 
+    // 속성 추가
     $images.src = `${imagesUrl + item.backdrop_path}`;
     $title.textContent = `${item.title}`;
     $content.textContent = `${item.overview}`;
-    $grade.textContent = `${item.vote_average}`;
+    $grade.textContent = `평점  ${item.vote_average} `;
     $divArea.classList.add('info-area');
     $divArea.appendChild($images);
     $divArea.appendChild($title);
     $divArea.appendChild($content);
     $divArea.appendChild($grade);
-    $wrapperArea.appendChild($divArea);
+    $container.appendChild($divArea);
     $searchInput.focus();
 
     $images.addEventListener('click', function () {
@@ -65,7 +63,7 @@ function searchTitle() {
   jsonObj.map((searchItem, index) => {
     let serachText = searchItem.title.toUpperCase();
 
-    if (serachText.indexOf($searchInput.value.replace(checkText, '').toUpperCase()) !== -1) {
+    if (serachText.replace(checkText, '').indexOf($searchInput.value.replace(checkText, '').toUpperCase()) !== -1) {
       $infoList[index].style.display = 'block';
     }
   });
@@ -73,6 +71,9 @@ function searchTitle() {
 }
 
 $searchBtn.addEventListener('click', () => searchTitle());
-$searchInput.addEventListener('change', e => {
+$searchInput.addEventListener('change', () => {
   $searchBtn.click();
+});
+$logo.addEventListener('click', () => {
+  window.location.reload();
 });
