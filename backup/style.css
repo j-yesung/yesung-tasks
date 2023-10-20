@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'SUIT-Regular';
+  box-sizing: border-box;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  cursor: pointer;
+}
+body {
+  padding: 2rem;
+}
+img {
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+}
+.info-area {
+  width: 90%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.search-form {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  margin-bottom: 30px;
+}
+.search-form .icon {
+  position: absolute;
+  top: -100%;
+  margin-left: -260px;
+  margin-top: 125px;
+  z-index: 1;
+  color: #000000;
+}
+input {
+  width: 300px;
+  height: 50px;
+  background: #ffffff;
+  border: none;
+  box-shadow: 1px 1px 1px 1px;
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+input:focus,
+input:active {
+  outline: none;
+}
