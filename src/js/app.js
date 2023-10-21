@@ -54,7 +54,6 @@ async function getMovieList() {
     return item;
   });
 
-  console.log(1);
   await startLoding(jsonObj);
 
   return jsonObj;
@@ -77,7 +76,7 @@ async function startLoding(obj) {
 async function searchTitle() {
   if ($searchInput.value === '') return alert('제목을 입력해 주세요.');
 
-  let res = await getMovieList();
+  const res = await getMovieList();
   const $card = document.querySelectorAll('.card');
   const $style = document.querySelector('style');
   let count = 0;
